@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/img/logo-navegador.png" type="Logo para el navegador">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/ficha-hibilitacion.css">
+    <link rel="stylesheet" href="/css/pedido.css">
+    <link rel="stylesheet" href="/css/productos.css">
+    <title>Pedido</title>
+</head>
+
+<body>
+
+    <!-- div contenedor -->
+    <div class="bg-[#ffe1d2] border border-orange-200 bg-opacity-40 sm:h-screen flex flex-col preview max-w-full ">
+        <form th:action="@{/generar-pdf}" th:object="${pedido}" method="post" id="fichaPantalon" enctype="multipart/form-data" target="_blank">
+
+            <!-- Elemento Nav Bar -->
+            <nav>
+                <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 content-center bg-[#e2aa80] bg-opacity-45 w-full start-0 px-[10%] md:px-[5%] items-stretch h-[18vh] md:h-[18vw] lg:h-[8vw] xl:h-[7vw] 2xl:h-[6vw] rounded-b-[90px] lg:rounded-b-full py-20 md:py-0">
+                    <div class="grid-span-1 flex justify-center">
+                        <a th:if="${usuario.role == 'ADMIN'}" th:href="@{/usuarios}">
+                            <button type="button" class="flex items-center justify-center h-12 md:h-auto w-[35vw] md:w-[26vw] lg:w-auto mx-2 my-1.5 md:mx-0 md:my-1.5 lg:my-0 px-[4vw] md:px-[3vw] lg:px-[2.5vw] xl:px-[2vw] text-white bg-[#ff8a00] fuente_1 hover:bg-[#ff9b00] focus:ring-4 focus:outline-none focus:ring-[#ffac00] rounded-3xl text-xs md:text-base lg:text-base xl:text-xl py-2 md:py-3 text-center">VER USUARIOS 
+                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-[1.15vw] md:ml-[0.85vw] xl:ml-[0.45vw] h-[20px] w-[20px] md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px]" viewBox="0 0 24 24"><g fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"><path d="M11.5 15H7a4 4 0 0 0-4 4v2m18.378-4.374a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><circle cx="10" cy="7" r="4"/></g></svg>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="grid-span-1 flex justify-center">
+                        <a th:href="@{/inventario}">
+                            <button type="button" class="flex items-center justify-center h-12 md:h-auto w-[35vw] md:w-[26vw] lg:w-auto mx-2 my-1.5 md:mx-0 md:my-1.5 lg:my-0 px-[4vw] md:px-[3vw] lg:px-[2.5vw] xl:px-[2vw] text-white bg-[#ff8a00] fuente_1 hover:bg-[#ff9b00] focus:ring-4 focus:outline-none focus:ring-[#ffac00] rounded-3xl text-xs md:text-base lg:text-base xl:text-xl py-2 md:py-3 text-center">VER INVENTARIO 
+                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-[1.15vw] md:ml-[0.85vw] xl:ml-[0.45vw] h-[19px] w-[19px] md:h-[18px] md:w-[18px] lg:h-[22px] lg:w-[22px]" viewBox="0 0 640 512"><path fill="white" d="M0 488V171.3c0-26.2 15.9-49.7 40.2-59.4L308.1 4.8c7.6-3.1 16.1-3.1 23.8 0L599.8 111.9c24.3 9.7 40.2 33.3 40.2 59.4V488c0 13.3-10.7 24-24 24H568c-13.3 0-24-10.7-24-24V224c0-17.7-14.3-32-32-32H128c-17.7 0-32 14.3-32 32V488c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24zm488 24l-336 0c-13.3 0-24-10.7-24-24V432H512l0 56c0 13.3-10.7 24-24 24zM128 400V336H512v64H128zm0-96V224H512l0 80H128z"/></svg>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="grid-span-1 flex justify-center">
+                      <a th:href="@{/habilitacion}">
+                          <button type="button" class="flex items-center justify-center break-all md:break-normal h-12 md:h-auto w-[35vw] md:w-[26vw] lg:w-auto mx-2 my-1.5 md:mx-0 md:my-1.5 lg:my-0 px-[4vw] md:px-[3vw] lg:px-[2.5vw] xl:px-[2vw] text-white bg-[#ff8a00] fuente_1 hover:bg-[#ff9b00] focus:ring-4 focus:outline-none focus:ring-[#ffac00] rounded-3xl text-xs md:text-base lg:text-base xl:text-xl py-2 md:py-3 text-center">HABILITACIONES 
+                            <svg class="ml-[1.15vw] md:ml-[0.85vw] xl:ml-[0.45vw] h-[20px] w-[20px] md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><g fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M2.9 8.875h8.2a2.305 2.305 0 0 1 0 4.61H2.9a2.305 2.305 0 0 1 0-4.61m7.545-7.379h-7c-.351 0-.636.254-.636.568v6.243c0 .314.285.568.636.568h7c.351 0 .636-.254.636-.568V2.064c0-.314-.285-.568-.636-.568"/><path d="M8.218 1.496v2.838a.27.27 0 0 1-.093.2a.339.339 0 0 1-.225.084H5.99a.339.339 0 0 1-.224-.083a.27.27 0 0 1-.093-.2v-2.84M3.735 11.43a.25.25 0 1 1 0-.5m0 .5a.25.25 0 1 0 0-.5m3.265.5a.25.25 0 1 1 0-.5m0 .5a.25.25 0 1 0 0-.5m3.265.5a.25.25 0 1 1 0-.5m0 .5a.25.25 0 1 0 0-.5"/></g>
+                            </svg>
+                          </button>
+                      </a>
+                    </div>
+                    <div class="grid-span-1 flex justify-center">
+                        <a th:href="@{/cerrar-sesion}">
+                            <button type="button" class="flex items-center justify-center h-12 md:h-auto w-[35vw] md:w-[26vw] lg:w-auto mx-2 my-1.5 md:mx-0 md:my-1.5 lg:my-0 px-[4vw] md:px-[3vw] lg:px-[2.5vw] xl:px-[2vw] text-white bg-[#db4900] fuente_1 hover:bg-[#ff5500] focus:ring-4 focus:outline-none focus:ring-[#e8763d] rounded-3xl text-xs md:text-base lg:text-base xl:text-xl py-2 md:py-3 text-center">CERRAR SESIÓN 
+                                <svg class="ml-[1.15vw] md:ml-[0.85vw] xl:ml-[0.45vw] h-[18px] w-[18px] md:h-[18px] md:w-[18px] lg:h-[20px] lg:w-[20px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path fill="white" d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/>
+                                </svg>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- navar -->
+            <nav class="bg-[#ffe1d2] bg-opacity-5 mb-10 mt-10 w-full z-20 top-0 start md:px-4 2xl:px-44 xl:px-24 lg:px-12 ">
+                <div class="max-w-screen flex flex-wrap items-center justify-stretch md:justify-between mx-auto mt-5 mb-5 p-4 ">
+                    <div class="flex items-center justify-center w-full md:w-auto sm:mr-[1vh] md:mr-[1vh]  2xl:mr-auto mb-5 mt-5 md:mb-0 md:mt-0 md:h-8 lg:h-12">
+                        <label for="dropzone-imagenE" class="flex flex-col items-center justify-center w-80 md:w-[22vw] md:ml-2 lg:w-48 xl:w-48 2xl:w-48  h-30 2xl:h-50 md:h-[20vh] border-2 border-orange-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative overflow-hidden">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 text-center font-normal"><span class="font-semibold text-[#db4900]">Click para subir</span></p>
+                                <p class="mb-2 text-sm text-gray-500 text-center font-normal">o arrastra la imagen</p>
+                                <p class="mb-2 text-[12px] text-gray-500 text-center font-normal">PNG, JPG menor a 1 MB</p>
+                            </div>
+                            <input id="dropzone-imagenE" name="dropzoneImagenE" type="file" accept="image/jpeg, image/png" onchange="validarTamanioImagen(this)" class="hidden" required/>
+                            <div id="vistaEmpresa" class="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none rounded-lg overflow-auto"></div>
+                        </label>
+                    </div>
+                    <div class="grid grid-rows-4 md:grid-rows-2 grid-flow-col gap-4 w-full md:w-auto">
+                        <div class="flex flex-col md:flex-row items-center mb-0 md:mb-0 lg:ml-auto">
+                            <div class="flex flex-col md:flex-row items-center mb-0 lg:ml-auto">
+                                <label for="departamento" class="mb-1 md:mb-0 mr-10 lg:mr-5 w-20 text-sm font-medium text-white-900 lg:ml-auto">Departamento:</label>
+                                <select id="departamento" th:field="*{departamento}" name="departamento" class="lg:ml-[4vh] border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-60 sm:w-72 md:w-32 sm:w-40 lg:w-[20vh] p-2.5 text-white placeholder-white h-10 bg-[#db4900]" required>
+                                    <option value="" selected>Selecione una opción</option>
+                                    <option value="Niño">Niño</option>
+                                    <option value="Niña">Niña</option>
+                                    <option value="Juvenil">Juvenil</option>
+                                    <option value="Bebos">Bebos</option>
+                                    <option value="Bebas">Bebas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center mb-3 md:mb-0 ">
+                            <label for="dropdownSearchButton" name="dropdownSearchButton" class="lg:ml-auto mb-1 md:mb-0 md:mr-10 lg:mr-14 w-20 px-2 text-sm font-medium text-white-900">Tallas:</label>
+                            <button id="dropdownSearchButton"  class="flex items-center justify-between border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-60 sm:w-72 md:w-32 sm:w-40 lg:w-[20vh] p-2.5 text-white placeholder-white h-10 bg-[#db4900]" type="button" aria-haspopup="true" aria-expanded="false" required>
+                                <span>Tallas</span>
+                                <svg id="dropdownIconClosed" class="w-2.5 h-1.5 ml-2" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                                <svg id="dropdownIconOpen" class="w-2.5 h-1.5 ml-2 hidden" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m9 5-4-4-4 4" />
+                                </svg>
+                            </button>
+
+                            <!-- Alerta de Tamaño y Formato de Imagen -->
+                            <div id="alertContainer" class="fixed max-h-[84%] md:max-h-[76%] lg:max-h-[84%] xl:max-h-[82%] w-6/12 md:w-5/12 lg:w-4/12 xl:w-3/12 top-[8%] md:top-[12%] lg:top-[8%] xl:top-[9%] right-2 md:right-4 space-y-4 z-10 overflow-hidden"></div>
+
+                            <!-- Dropdown Menu -->
+                            <div id="dropdownSearch"  class="absolute z-10 hidden bg-opacity-80 bg-[#f2c8ad] border-orange-300 rounded-lg shadow-lg w-40 top-[60%] sm:top-[60%] md:top-[28%] lg:top-[18%] md:ml-[12%] lg:ml-[14%] xl:ml-[11%] 2xl:ml-[8%] mt-[8%] sm:mt-[8%] md:mt-[8%] lg:mt-[7%] xl:mt-[6.5%] 2xl:mt-[5.5%]">
+                                <ul id="dropdownMenu" class="max-h-36 px-3 pb-3 overflow-y-auto text-sm text-gray-700 mt-[7%]" aria-labelledby="dropdownSearchButton">
+                                    <!-- Dropdown items -->
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-1" value="9-12" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-1" class="w-full ms-2 text-sm font-medium text-white-900 rounded">9-12</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-2" value="18M" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-2" class="w-full ms-2 text-sm font-medium text-white-900 rounded">18M</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-3" value="2" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-3" class="w-full ms-2 text-sm font-medium text-white-900 rounded">2</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-4" value="3" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-4" class="w-full ms-2 text-sm font-medium text-white-900 rounded">3</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-5" value="4" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-5" class="w-full ms-2 text-sm font-medium text-white-900 rounded">4</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-6" value="5" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-6" class="w-full ms-2 text-sm font-medium text-white-900 rounded">5</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-7" value="6" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-7" class="w-full ms-2 text-sm font-medium text-white-900 rounded">6</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-8" value="8" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-8" class="w-full ms-2 text-sm font-medium text-white-900 rounded">8</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-9" value="10" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-9" class="w-full ms-2 text-sm font-medium text-white-900 rounded">10</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-10" value="12" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-10" class="w-full ms-2 text-sm font-medium text-white-900 rounded">12</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-11" value="14" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-11" class="w-full ms-2 text-sm font-medium text-white-900 rounded">14</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-11" value="16" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-12" class="w-full ms-2 text-sm font-medium text-white-900 rounded">16</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-orange-100">
+                                            <input type="checkbox" id="checkbox-item-11" value="18" class="w-4 h-4 text-orange-600 bg-gray-100 border-orange-300 rounded focus:ring-orange-500 focus:ring-2">
+                                            <label for="checkbox-item-13" class="w-full ms-2 text-sm font-medium text-white-900 rounded">18</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center mb-3 md:mb-0">
+                            <label for="fecha" class="mb-1 md:mb-0 md:mr-5 lg:mr-5 w-20 px-2 text-sm font-medium text-white-900">Fecha:</label>
+                            <input type="date" id="fecha" th:field="*{fecha}" name="fecha" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-60 sm:w-72 md:w-32 sm:w-40 lg:w-[20vh] p-2.5 text-white placeholder-white h-10 bg-[#db4900]" required>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center">
+                            <label for="temporada" class="mb-1 mr-5 md:mb-0 md:mr-5 lg:mr-5 w-20 px-2 text-sm font-medium text-white-900">Temporada:</label>
+                            <input type="text" id="temporada" th:field="*{temporada}" name="temporada" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-60 sm:w-72 md:w-32 sm:w-40 lg:w-[20vh] p-2.5 text-white placeholder-white h-10 bg-[#db4900]" placeholder="No. Temporada" required />
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- div contenido -->
+            <div class="container max-w-full flex-grow border border-orange-200 rounded-t-3xl shadow-lg  sm:p-6 md:p-8 bg-opacity-80 bg-[#f2c8ad]">
+                <!-- División en 3 columnas -->
+                <div class="flex flex-col md:flex-row justify-center items-center ">
+                    <!-- Columna izquierda (imagen) -->
+                    <div class="w-full sm:w-[50vh] h-full md:w-[35vh] lg:w-[40vh] 2xl:w-[70vh] xl:w-[60vh] flex justify-center items-center p-4 mr-5 ">
+                        <div class="w-full max-w-md p-6 border border-orange-200 rounded-[45px] shadow sm:p-6 md:p-8 bg-opacity-40 bg-[#db4900] mt-10">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="descripcion" class="block mb-1 mt-5 text-sm font-medium text-white">Descripción</label>
+                                    <input type="text" th:field="*{descripcion}" name="descripcion" id="descripcion" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 text-white placeholder-white h-10 bg-[#db4900] mb-2" required />
+                                </div>
+                                <div>
+                                    <label for="estilos" class="block mb-1 text-sm font-medium text-white">Estilos</label>
+                                    <input type="text" th:field="*{estilos}" name="estilos" id="estilos" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 text-white placeholder-white h-10 bg-[#db4900] mb-2" required />
+                                </div>
+                                <div class="block mb-1 text-sm font-medium text-white">
+                                    <label for="categoria" class="block mb-1 text-sm font-medium text-white-900">Tipo de corte</label>
+                                    <select id="categoria" name="categoria" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 text-white placeholder-white h-10 bg-[#db4900] mb-2" required>
+                                        <option value="" selected>Seleccione una opción</option>
+                                        <option value="Moda">Moda</option>
+                                        <option value="Básico">Básico</option>
+                                        <option value="Shorts">Shorts</option>
+                                        <option value="Bermudas">Bermudas</option>
+                                    </select>
+                                </div>
+                                <!-- Contenedor para el campo de fit -->
+                                
+                                <div>
+                                    <label for="tallas" class="block mb-1 text-sm font-medium text-white">Talla de la Muestra</label>
+                                    <input type="text" id="tallas" th:field="*{tallas}" name="tallas" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 text-white placeholder-white h-10 bg-[#db4900] mb-2" required />
+                                </div>
+                                <div>
+                                    <div class="block mb-1 text-sm font-medium text-white-900">
+                                        <label for="provedor" class="block mb-1 text-sm font-medium text-white">Provedor</label>
+                                        <select id="provedor" th:field="*{provedor}" name="provedor" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 text-white placeholder-white h-10 bg-[#db4900] mb-2" required>
+                                            <option value="" selected>Selecione una opción</option>
+                                            <option value="Rubert's Denim">Rubert's Denim</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna central -->
+                    <div class="w-1/3 p-4 flex flex-col items-center w-full md:w-[30vh] lg:w-[45vh] xl:w-[50vh] 2xl:w-[70vh]  ">
+                        <div class="flex items-center justify-center px-4 w-[45vh] h-[50vh] sm:w-[48vh] md:w-full mt-4">
+                            <label for="dropzone-file"  class="flex flex-col items-center justify-center w-full h-full h-64 border-2 border-orange-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative overflow-hidden">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 text-center font-normal"><span class="font-semibold text-[#db4900]">Click para subir</span> o arrastra la imagen</p>
+                                    <p class="mb-2 text-[12px] text-gray-500 text-center font-normal">PNG, JPG menor a 1 MB</p>
+                                </div>
+                                <input id="dropzone-file" name="dropzoneFile" type="file" accept="image/jpeg, image/png" onchange="validarTamanioImagen(this)" class="hidden" required/>
+                                <div id="preview" class="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none rounded-lg overflow-auto"></div>
+                            </label>
+                        </div>
+                        <div class="w-full max-w-full max-w-md p-6 border border-orange-200 rounded-[45px] shadow sm:p-6 md:p-8 bg-opacity-40 bg-[#db4900] mt-10">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="tela" class="block mb-1 text-sm font-medium text-white">Tela</label>
+                                    <input type="text" id="tela" th:field="*{tela}" name="tela" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 text-white placeholder-white h-10 bg-[#db4900] mb-2" required />
+                                </div>
+                                <div>
+                                    <div class="block mb-1 text-sm font-medium text-white">
+                                        <label for="lavado_procesado" class="block mb-1 text-sm font-medium text-white-900">Lavado y Procesado:</label>
+                                        <select id="lavado_procesado" th:field="*{lavado_procesado}" name="lavado_procesado" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 text-white placeholder-white h-10 bg-[#db4900] mb-2" required>
+                                            <option value="" selected>Selecione una opción</option>
+                                            <option value="Blinch">Blinch</option>
+                                            <option value="Stone Medio">Stone Medio</option>
+                                            <option value="Stone Alto">Stone Alto</option>
+                                            <option value="Suavisado">Suavisado</option>
+                                            <option value="Bebas">Bebas</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="botonSelect">
+                                    <div class="block mb-1 text-sm font-medium text-white">
+                                        <label id="botonLabel" for="botonHebilla" class="block mb-1 text-sm font-medium text-white-900">Botón / Hebilla</label>
+                                        <select id="botonHebilla" th:field="*{botonHebilla}" name="botonHebilla" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 text-white placeholder-white h-10 bg-[#db4900] mb-2" required>
+                                            <option value="" selected>Selecione una opción</option>
+                                            <option value="Botón">Botón</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="hilo" class="block mb-1 text-sm font-medium text-white">Hilo</label>
+                                    <input type="text" id="hilo" th:field="*{hilo}" name="hilo" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 text-white placeholder-white h-10 bg-[#db4900] mb-2" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna derecha -->
+                    <div class="w-1/3 p-4 flex justify-center flex-col items-center ">
+                        <div class="w-[45vh] sm:w-[41vh] lg:w-[20vh] md:w-[22vh] xl:w-[40vh] 2xl:w-[30vh] max-w-lg p-6 border border-orange-200 rounded-[45px] shadow sm:p-6 md:p-8 bg-opacity-40 bg-[#db4900] overflow-auto h-96" id="imageContainer">
+                            <div>
+                                <label for="numImagesSelect" class="block mb-1 text-sm font-medium text-center text-white">Etiquetado</label>
+                                <select id="numImagesSelect" th:field="*{numImagesSelect}" name="numImagesSelect" class="border border-orange-300 text-white-900 text-sm rounded-3xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 text-white placeholder-white h-10 bg-[#db4900] mb-2" required>
+                                    <option value="" selected>Selecciona el Número de Etiquetas</option>
+                                    <option class="bg-[#db4900] hover:bg-orange-500 hover:text-white" value="1">1</option>
+                                    <option class="bg-[#db4900] hover:bg-orange-500 hover:text-white" value="2">2</option>
+                                    <option class="bg-[#db4900] hover:bg-orange-500 hover:text-white" value="3">3</option>
+                                    <option class="bg-[#db4900] hover:bg-orange-500 hover:text-white" value="4">4</option>
+                                    <option class="bg-[#db4900] hover:bg-orange-500 hover:text-white" value="5">5</option>
+                                </select>
+                            </div>
+                            <div id="dropzoneContainer" class="mt-4 flex flex-wrap justify-evenly"></div>
+                        </div>
+                        <div class="flex justify-center mt-4">
+                            <button type="submit" class="w-[40vh] sm:w-[35vh] md:w-[18vh] lg:w-[20vh] xl:w-35 2xl:w-40 py-4 text-white bg-[#db4900] hover:bg-[#ff5500] focus:ring-4 focus:ring-[#e8763d] focus:outline-none rounded-3xl sm:text-sm text-md font-bold">Guardar</button>
+                        </div>
+                        <div class="flex justify-center mt-4">
+                            <button type="reset" onclick="resetearRemoverCampos()" class="w-[40vh] sm:w-[35vh] md:w-[18vh] lg:w-[20vh] 2xl:w-40 py-4 text-white bg-[#db4900] hover:bg-[#ff5500] focus:ring-4 focus:ring-[#e8763d] focus:outline-none rounded-3xl sm:text-sm text-md font-bold">Borrar</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="/js/imagenPrevia.js"></script>
+    <script src="/js/pedido.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+
+</body>
+</html>
